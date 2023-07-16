@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Filter = ({ filterCriteria, handleFilter }) => {
   return (
@@ -66,6 +67,12 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [filterCriteria, setFilterCriteria] = useState("");
   const [filteredPersons, setFilteredPersons] = useState([...persons]);
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/persons").then((response) => {
+      setPersons(response.data);
+    });
+  }, []);
 
   const handleFilter = (event) => {
     setFilterCriteria(event.target.value);
