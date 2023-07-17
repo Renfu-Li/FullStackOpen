@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+
+import personService from "./services/persons.js";
 
 const Filter = ({ filterCriteria, handleFilter }) => {
   return (
@@ -37,39 +38,39 @@ const AddPerson = ({
   );
 };
 
-const PersonsNumber = ({ shownNumbers }) => {
+const PersonsNumber = ({ shownNumbers, handleDelete }) => {
   return (
     <>
       <h2>Numbers</h2>
       {shownNumbers.map((person) => (
-        <SinglePerson key={person.name} person={person}></SinglePerson>
+        <SinglePerson
+          key={person.id}
+          person={person}
+          handleDelete={handleDelete}
+        ></SinglePerson>
       ))}
     </>
   );
 };
 
-const SinglePerson = ({ person }) => {
+const SinglePerson = ({ person, handleDelete }) => {
   return (
     <p>
       {person.name} {person.number}
+      <button onClick={() => handleDelete(person.id)}>delete</button>
     </p>
   );
 };
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: "Arto Hellas", number: 123456 },
-    { name: "Dumb Trump", number: 131313 },
-    { name: "Idiot Trump", number: 747474 },
-    { name: "Dead Putin", number: 444444 },
-  ]);
+  const [persons, setPersons] = useState([]);
   const [newNumber, setNewNumber] = useState("");
   const [newName, setNewName] = useState("");
   const [filterCriteria, setFilterCriteria] = useState("");
   const [filteredPersons, setFilteredPersons] = useState([...persons]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons").then((response) => {
+    personService.getAll().then((response) => {
       setPersons(response.data);
     });
   }, []);
@@ -79,11 +80,11 @@ const App = () => {
 
     const lowerFilterCritera = event.target.value.toLowerCase();
 
-    setFilteredPersons(
-      persons.filter((person) =>
-        person.name.toLowerCase().includes(lowerFilterCritera)
-      )
+    const filteredPersons = persons.filter((person) =>
+      person.name.toLowerCase().includes(lowerFilterCritera)
     );
+
+    setFilteredPersons(filteredPersons);
   };
 
   const handleNameInput = (event) => {
@@ -98,21 +99,66 @@ const App = () => {
     event.preventDefault();
 
     const currentNames = persons.map((person) => person.name);
-    if (currentNames.includes(newName)) {
-      alert(`${newName} is already added to phonebook`);
-      return;
-    }
 
     if (newName === "" || newNumber === "") {
       alert("You must input both Name and Number to add to phonebook");
       return;
     }
 
-    const newPerson = { name: newName, number: newNumber };
-    setPersons(persons.concat(newPerson));
+    if (currentNames.includes(newName)) {
+      const confirmReplace = window.confirm(
+        `${newName} is already added to phonebook, replace the old number with a new one?`
+      );
 
-    setNewName("");
-    setNewNumber("");
+      if (confirmReplace) {
+        const personToUpdate = persons.find(
+          (person) => person.name === newName
+        );
+        const updatedPerson = { ...personToUpdate, number: newNumber };
+
+        personService
+          .updatePerson(personToUpdate.id, updatedPerson)
+          .then((response) =>
+            setPersons(
+              persons.map((person) =>
+                person.name === newName ? response.data : person
+              )
+            )
+          );
+      }
+    } else {
+      const newPerson = { name: newName, number: newNumber };
+      personService
+        .createPerson(newPerson)
+        .then((response) => setPersons(persons.concat(response.data)))
+        .catch((error) => console.log("Failed adding new person"));
+
+      setNewName("");
+      setNewNumber("");
+    }
+  };
+
+  const handleDelete = (id) => {
+    console.log(id);
+
+    const personToDelete = persons.find((person) => person.id === id);
+
+    console.log(personToDelete.id);
+    console.log(personToDelete.name);
+    console.log(persons);
+    const confirmDelete = window.confirm(`Delete ${personToDelete.name}?`);
+
+    if (confirmDelete) {
+      personService
+        .deletePerson(id)
+        .then(() => {
+          setPersons(persons.filter((person) => person.id !== id));
+          setFilteredPersons(
+            filteredPersons.filter((person) => person.id !== id)
+          );
+        })
+        .catch((error) => console.log("failed to delete the person"));
+    }
   };
 
   return (
@@ -133,6 +179,7 @@ const App = () => {
 
       <PersonsNumber
         shownNumbers={filterCriteria === "" ? persons : filteredPersons}
+        handleDelete={handleDelete}
       ></PersonsNumber>
     </div>
   );
