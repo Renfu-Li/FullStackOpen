@@ -1,0 +1,12 @@
+GET http://localhost:3001/api/blogs
+
+###
+POST  http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+  "title": "New blog",
+  "author": "Student of FullStackOpen",
+  "url": "www.google.com",
+  "likes": 3
+}
