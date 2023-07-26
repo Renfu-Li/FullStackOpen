@@ -1,4 +1,4 @@
-const { info, error } = require("../utils/logger");
+const { info } = require("../utils/logger");
 const Blog = require("../models/blog");
 const blogsRouter = require("express").Router();
 

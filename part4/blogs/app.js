@@ -12,7 +12,7 @@ mongoose
     info("Connecting to MongoDB");
   })
   .catch((err) => {
-    error("Error connecting to MongoDB");
+    error("Error connecting to MongoDB", err.message);
   });
 
 mongoose.set("strictQuery", false);
