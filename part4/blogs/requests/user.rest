@@ -1,0 +1,31 @@
+GET http://localhost:3001/api/users
+
+###
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+  "username": "Dead Trump",
+  "name": "Truly Dead Trump",
+  "password": "Dumb Trump"
+}
+
+###
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+  "username": "Dead Putin",
+  "name": "Truly Dead Putin",
+  "password": "Murder Putin"
+}
+
+###
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+  "username": "Hero Zelensky",
+  "name": "Truly Hero Zelensky",
+  "password": "Saver Zelensky"
+}

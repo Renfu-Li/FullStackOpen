@@ -3,21 +3,35 @@ GET http://localhost:3001/api/blogs
 ###
 POST  http://localhost:3001/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikhlcm8gWmVsZW5za3kiLCJpZCI6IjY0YzVlZWU4MWY0YzI2MWYzOTcwYTE1NCIsImlhdCI6MTY5MDY5Njg1MywiZXhwIjoxNjkwNzAwNDUzfQ.dy6pLM0fABsQZY4baglu4hJY4a20YXaAawOU2fWidfQ
 
 {
-  "title": "New blog",
-  "author": "Student of FullStackOpen",
+  "title": "Glory to Ukraine",
+  "author": "supporter of Ukraine",
   "url": "www.google.com",
-  "likes": 3
+  "likes": 100
 }
 
 ###
 POST  http://localhost:3001/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRlYWQgUHV0aW4iLCJpZCI6IjY0YzVlZDQxMWY0YzI2MWYzOTcwYTE0ZCIsImlhdCI6MTY5MDY5NzI0OSwiZXhwIjoxNjkwNzAwODQ5fQ.9yzALGE_uAv8lQ4NPGyWZZWtjBAKlfNnD4x71o8F7zo
 
 {
-  "title": "Second blog",
-  "author": "Student of FullStackOpen",
+  "title": "Nazi Russia will be defeated",
+  "author": "Peace lover",
   "url": "www.bing.com",
-  "likes": 6
+  "likes": 100
+}
+
+###
+POST  http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRlYWQgVHJ1bXAiLCJpZCI6IjY0YzVlZDFiMWY0YzI2MWYzOTcwYTE0OCIsImlhdCI6MTY5MDY5NzYwOSwiZXhwIjoxNjkwNzAxMjA5fQ.DhPHQkG8l5Lyauhit_HU0GO4vb1cg49Ua7KaOV6Ys0o
+
+{
+  "title": "Dumb Trump won't be president again",
+  "author": "Democracy lover",
+  "url": "www.realtruth.com",
+  "likes": 100
 }

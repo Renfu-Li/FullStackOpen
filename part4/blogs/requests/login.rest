@@ -1,0 +1,25 @@
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "Hero Zelensky",
+  "password": "Saver Zelensky"
+}
+
+###
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "Dead Putin",
+  "password": "Murder Putin"
+}
+
+###
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "Dead Trump",
+  "password": "Dumb Trump"
+}
