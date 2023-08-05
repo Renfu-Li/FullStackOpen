@@ -1,0 +1,32 @@
+###
+GET http://localhost:3001/api/notes/64bb4028fb4502658c558355
+
+###
+GET http://localhost:3001/api/notes
+
+###
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY0YzQ5NDUxZWJkZGVhMzk0MzUxMjIyZiIsImlhdCI6MTY5MDY0ODIzM30.JOwJy4pai27zqaKp-gkAwnqJqm9F3yrR1b3iNKXbbHA
+
+{
+  "content": "test JWT again",
+  "important": true
+}
+
+
+###
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+
+{}
+
+###
+PUT http://localhost:3001/api/notes/64bb4028fb4502658c558355
+Content-Type: application/json
+
+{
+  "content": "test document replacement using rest client extension",
+  "important": true
+}
+

@@ -1,0 +1,33 @@
+###
+GET http://localhost:3001/api/users
+
+###
+POST http://localhost:3001/api/users/
+Content-Type: application/json
+
+{
+  "username": "mluukkai",
+  "name": "Dead Trump",
+  "password": "TrulyDeadTrump"
+}
+
+###
+POST http://localhost:3001/api/users/
+Content-Type: application/json
+
+{
+  "username": "root",
+  "name": "Hello world",
+  "password": "Good man Joe"
+}
+
+###
+POST http://localhost:3001/api/users/
+Content-Type: application/json
+
+{
+  "username": "part5 student",
+  "name": "Hello Again!",
+  "password": "Limited objective & Play around!"
+}
+

@@ -18,9 +18,6 @@ blogsRouter.get("/:id", async (req, res) => {
 
 blogsRouter.post("/", async (req, res) => {
   const { title, author, url, likes } = req.body;
-  if (!title || !url) {
-    return res.status(400).json({ error: "Titlt and URL are required" });
-  }
 
   if (!req.token) {
     return res.status(401).json({ error: "token not provided" });

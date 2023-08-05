@@ -39,7 +39,7 @@ beforeEach(async () => {
   }
 });
 
-test("all notes are returned", async () => {
+test("all blogs are returned", async () => {
   const response = await api.get("/api/blogs");
   console.log(response.body);
   expect(response.body).toHaveLength(initialBlogs.length);
@@ -118,28 +118,28 @@ test("likes property has a default value of 0", async () => {
   expect(lastBlog.likes).toBe(0);
 });
 
-// test("missing title or url results a status code 400", async () => {
-//   const { username, password } = initialUsers[0];
+test("missing title or url results a status code 400", async () => {
+  const { username, password } = initialUsers[0];
 
-//   const response = await api.post("/api/login").send({ username, password });
-//   const token = response.body.token;
+  const response = await api.post("/api/login").send({ username, password });
+  const token = response.body.token;
 
-//   const blogContent = {
-//     title: "test missing url",
-//     author: "Mac user",
-//     likes: 20,
-//   };
+  const blogContent = {
+    title: "test missing url",
+    author: "Mac user",
+    likes: 20,
+  };
 
-//   await api
-//     .post("/api/blogs")
-//     .set("Authorization", `bearer ${token}`)
-//     .send(blogContent)
-//     .expect(400);
+  await api
+    .post("/api/blogs")
+    .set("Authorization", `bearer ${token}`)
+    .send(blogContent)
+    .expect(400);
 
-//   await api.post("/api/blogs").send(blogContent).expect(400);
-// });
+  await api.post("/api/blogs").send(blogContent).expect(400);
+});
 
-test("updating a note", async () => {
+test("updating a blog", async () => {
   const blogsAtStart = await blogsInDb();
   const blogToUpdate = blogsAtStart[0];
 
@@ -156,7 +156,7 @@ test("updating a note", async () => {
   expect(blogsAtEnd[0].title).toBe(blogContent.title);
 });
 
-test("deletion of a note", async () => {
+test("deletion of a blog", async () => {
   const blogsAtStart = await blogsInDb();
   const blogToDelete = blogsAtStart[0];
   await api.delete(`/api/blogs/${blogToDelete.id}`);

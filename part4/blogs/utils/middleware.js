@@ -2,8 +2,9 @@ const jwt = require("jsonwebtoken");
 const { error } = require("./logger");
 const User = require("../models/user");
 
-const unknownEndpoint = (res) => {
+const unknownEndpoint = (req, res, next) => {
   res.status(404).json({ error: "unknown endpoint" });
+  next();
 };
 
 const errorHandler = (err, req, res, next) => {
@@ -14,6 +15,8 @@ const errorHandler = (err, req, res, next) => {
     return res.status(400).json(err.message);
   } else if (err.name === "CastError") {
     return res.status(400).json({ error: "malformatted id" });
+  } else if (err.name === "ValidationError") {
+    return res.status(400).json({ error: err.message });
   } else if (err.name === "JsonTokenError") {
     return res.status(400).json({ error: err.message });
   } else if (err.name === "Unauthorized") {
@@ -38,8 +41,6 @@ const tokenExtractor = (req, res, next) => {
 
   if (authorization && authorization.toLowerCase().startsWith("bearer")) {
     req.token = authorization.replace("bearer ", "");
-  } else {
-    return res.status(401).json({ error: "token not provided" });
   }
 
   next();
