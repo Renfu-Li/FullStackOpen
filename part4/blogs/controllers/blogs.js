@@ -1,4 +1,3 @@
-const jwt = require("jsonwebtoken");
 const { info } = require("../utils/logger");
 const Blog = require("../models/blog");
 const blogsRouter = require("express").Router();
@@ -18,15 +17,6 @@ blogsRouter.get("/:id", async (req, res) => {
 
 blogsRouter.post("/", async (req, res) => {
   const { title, author, url, likes } = req.body;
-
-  if (!req.token) {
-    return res.status(401).json({ error: "token not provided" });
-  }
-  const decodedToken = jwt.verify(req.token, process.env.SECRET);
-
-  if (!decodedToken) {
-    return res.status(401).json({ error: "token invalid" });
-  }
 
   const user = req.user;
 
@@ -49,24 +39,28 @@ blogsRouter.post("/", async (req, res) => {
 
 blogsRouter.put("/:id", async (req, res) => {
   const { title, author, url, likes } = req.body;
+
+  const user = req.user;
+
   const updatedBlog = await Blog.findByIdAndUpdate(
     req.params.id,
-    { title, author, url, likes },
+    { title, author, url, likes, user: user._id },
     { new: true }
   );
+
   res.status(200).json(updatedBlog);
 });
 
 blogsRouter.delete("/:id", async (req, res) => {
-  const blogToDelete = Blog.findById(req.params.id);
-  const decodedToken = jwt.verify(req.token, process.env.SECRET);
-  const blogAuthorId = blogToDelete.user.toString();
-  if (blogToDelete && decodedToken && blogAuthorId === decodedToken.id) {
-    Blog.findByIdAndDelete(blogToDelete.id);
-  }
+  const blogId = req.params.id;
+  const blogToDelete = await Blog.findById(blogId);
+  const blogAuthorId = blogToDelete.user.toJSON();
+  const loggedinAuthorId = req.user._id.toJSON();
 
-  await Blog.deleteOne({ _id: req.params.id });
-  res.status(204).end();
+  if (blogToDelete && blogAuthorId === loggedinAuthorId) {
+    await Blog.findByIdAndDelete(blogId);
+    res.status(200).json(blogToDelete);
+  }
 });
 
 module.exports = blogsRouter;

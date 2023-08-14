@@ -1,7 +1,7 @@
-GET http://localhost:3001/api/blogs
+GET http://localhost:3003/api/blogs
 
 ###
-POST  http://localhost:3001/api/blogs
+POST  http://localhost:3003/api/blogs
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikhlcm8gWmVsZW5za3kiLCJpZCI6IjY0YzVlZWU4MWY0YzI2MWYzOTcwYTE1NCIsImlhdCI6MTY5MDY5Njg1MywiZXhwIjoxNjkwNzAwNDUzfQ.dy6pLM0fABsQZY4baglu4hJY4a20YXaAawOU2fWidfQ
 
@@ -13,7 +13,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikhlc
 }
 
 ###
-POST  http://localhost:3001/api/blogs
+POST  http://localhost:3003/api/blogs
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRlYWQgUHV0aW4iLCJpZCI6IjY0YzVlZDQxMWY0YzI2MWYzOTcwYTE0ZCIsImlhdCI6MTY5MDY5NzI0OSwiZXhwIjoxNjkwNzAwODQ5fQ.9yzALGE_uAv8lQ4NPGyWZZWtjBAKlfNnD4x71o8F7zo
 
@@ -25,7 +25,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRlY
 }
 
 ###
-POST  http://localhost:3001/api/blogs
+POST  http://localhost:3003/api/blogs
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRlYWQgVHJ1bXAiLCJpZCI6IjY0YzVlZDFiMWY0YzI2MWYzOTcwYTE0OCIsImlhdCI6MTY5MDY5NzYwOSwiZXhwIjoxNjkwNzAxMjA5fQ.DhPHQkG8l5Lyauhit_HU0GO4vb1cg49Ua7KaOV6Ys0o
 
@@ -35,3 +35,21 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRlY
   "url": "www.realtruth.com",
   "likes": 100
 }
+
+###
+PUT http://localhost:3003/api/blogs/64d966fcd8e1a08704985b0a
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImN5cHJlc3NVc2VyIiwiaWQiOiI2NGQ5N2M2M2Q4ZTFhMDg3MDQ5ODViNGMiLCJpYXQiOjE2OTE5NzQ4MzMsImV4cCI6MTY5MTk3ODQzM30.rd820rHW2lHNUeuu7BxVVhTf3r3RHPQ15mussYnuqfU
+
+{
+  "title": "Update a blog",
+  "author": "Democracy lover",
+  "url": "www.realtruth.com",
+  "likes": 100
+}
+
+
+###
+DELETE http://localhost:3003/api/blogs/64ced6baba9da16397cdceb8
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImN5cHJlc3NVc2VyIiwiaWQiOiI2NGQ5NjEyN2Q4ZTFhMDg3MDQ5ODVhY2YiLCJpYXQiOjE2OTE5NjkyMjAsImV4cCI6MTY5MTk3MjgyMH0.aOBTkAZWYShkYRaH-T4l2-AncnSEXgKNsKE4g4Bc7BY
