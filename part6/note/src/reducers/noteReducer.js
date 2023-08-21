@@ -1,47 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-const initialState = [
-  {
-    content: "reducer defines how redux store works",
-    important: true,
-    id: 1,
-  },
-  {
-    content: "state of store can contain any data",
-    important: false,
-    id: 2,
-  },
-];
-
-const generateId = () => {
-  Number((Math.random() * 1000000).toFixed(0));
-};
+import noteService from "../services/notes";
 
 const noteSlice = createSlice({
   name: "notes",
-  initialState,
+  initialState: [],
   reducers: {
-    createNote(state, action) {
-      const content = action.payload;
+    toggleImportanceOf(state, action) {
+      const changedNote = action.payload;
 
-      state.push({
-        content,
-        important: false,
-        id: generateId(),
-      });
+      return state.map((note) =>
+        note.id === changedNote.id ? changedNote : note
+      );
     },
 
-    toggleImportanceOf(state, action) {
-      const id = action.payload;
+    appendNote(state, action) {
+      state.push(action.payload);
+    },
 
-      const noteToChange = state.find((n) => n.id === id);
-
-      const changedNote = {
-        ...noteToChange,
-        important: !noteToChange.important,
-      };
-
-      return state.map((note) => (note.id !== id ? note : changedNote));
+    setNotes(state, action) {
+      return action.payload;
     },
   },
 });
@@ -64,21 +41,36 @@ const noteSlice = createSlice({
 //   };
 // };
 
-const noteReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case "NEW_NOTE":
-      return [...state, action.payload];
-    case "TOGGLE_IMPORTANCE": {
-      return state.map((note) =>
-        note.id === action.payload.id
-          ? { ...note, important: !note.important }
-          : note
-      );
-    }
-    default:
-      return state;
-  }
+// const noteReducer = (state = initialState, action) => {
+//   switch (action.type) {
+//     case "NEW_NOTE":
+//       return [...state, action.payload];
+//     case "TOGGLE_IMPORTANCE": {
+//       return state.map((note) =>
+//         note.id === action.payload.id
+//           ? { ...note, important: !note.important }
+//           : note
+//       );
+//     }
+//     default:
+//       return state;
+//   }
+// };
+
+export const { toggleImportanceOf, appendNote, setNotes } = noteSlice.actions;
+
+export const initializeNotes = () => {
+  return async (dispatch) => {
+    const notes = await noteService.getAll();
+    dispatch(setNotes(notes));
+  };
 };
 
-export const { createNote, toggleImportanceOf } = noteSlice.actions;
+export const newNote = (content) => {
+  return async (dispatch) => {
+    const createdNote = await noteService.createNote(content);
+    dispatch(appendNote(createdNote));
+  };
+};
+
 export default noteSlice.reducer;

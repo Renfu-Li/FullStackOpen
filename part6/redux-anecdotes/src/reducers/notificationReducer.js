@@ -12,10 +12,17 @@ const notificationSlice = createSlice({
     },
 
     removeMessage(state, action) {
-      return action.payload;
+      return "";
     },
   },
 });
+
+export const setNotification = (message, duration) => {
+  return async (dispatch) => {
+    dispatch(setMessage(message));
+    setTimeout(() => dispatch(removeMessage()), duration);
+  };
+};
 
 export const { setMessage, removeMessage } = notificationSlice.actions;
 export default notificationSlice.reducer;
