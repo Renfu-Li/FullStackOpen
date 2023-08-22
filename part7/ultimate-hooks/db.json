@@ -1,0 +1,56 @@
+{
+  "notes": [
+    {
+      "id": 1,
+      "content": "custom hooks are awesome"
+    },
+    {
+      "id": 2,
+      "content": "best feature ever <3"
+    },
+    {
+      "content": "test making post request",
+      "id": 3
+    },
+    {
+      "content": "test making post request",
+      "id": 4
+    },
+    {
+      "content": "test making post request again",
+      "id": 5
+    },
+    {
+      "content": "test clearing the input box",
+      "id": 6
+    },
+    {
+      "content": "test clearing the input box",
+      "id": 7
+    },
+    {
+      "content": "test clearing the input box",
+      "id": 8
+    },
+    {
+      "content": "test clearing the input box",
+      "id": 9
+    },
+    {
+      "content": "test clearing the input box",
+      "id": 10
+    }
+  ],
+  "persons": [
+    {
+      "id": 1,
+      "name": "Matti Luukkainen",
+      "number": "040-12344565"
+    },
+    {
+      "id": 2,
+      "name": "Tarja Halonen",
+      "number": "040-2223334"
+    }
+  ]
+}
