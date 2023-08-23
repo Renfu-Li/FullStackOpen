@@ -37,6 +37,30 @@ blogsRouter.post("/", async (req, res) => {
   res.status(201).json(savedBlog);
 });
 
+blogsRouter.post("/:id/comments", async (req, res) => {
+  const { content } = req.body;
+
+  const blogToUpdate = await Blog.findById(req.params.id);
+  const { title, author, url, likes } = blogToUpdate;
+  const user = req.user;
+  const newComments = blogToUpdate.comments.concat(content);
+
+  const updatedBlog = await Blog.findByIdAndUpdate(
+    req.params.id,
+    {
+      title,
+      author,
+      url,
+      likes,
+      user,
+      comments: newComments,
+    },
+    { new: true }
+  );
+
+  res.status(200).json(updatedBlog);
+});
+
 blogsRouter.put("/:id", async (req, res) => {
   const { title, author, url, likes } = req.body;
 

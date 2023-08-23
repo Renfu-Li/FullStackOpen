@@ -32,7 +32,7 @@ usersRouter.get("/", async (req, res) => {
     title: 1,
     author: 1,
     url: 1,
-    link: 1,
+    likes: 1,
   });
   res.status(200).json(users);
 });
