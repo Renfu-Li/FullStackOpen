@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@apollo/client": "^3.8.1",
+    "graphql": "^16.8.0"
+  }
+}
